@@ -37,10 +37,9 @@ const Home = () => {
 
       <div className="grid gap-x-6 px-10 xl:w-3/4 xl:mx-auto mt-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {items.map((item: any) => (
-          <Card key={item.id} data={item} />
+          <Card key={item.id} data={item} to={`/detail/${item?.id}`} />
         ))}
       </div>
-      
     </div>
   );
 };
