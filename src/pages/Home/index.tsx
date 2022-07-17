@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Card from "../../components/Card";
 //redux
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { getItems } from "../../features/itemsSlice";
+import { fetchItems } from "../../features/itemsSlice";
 import { getCategories } from "../../features/categorySlice";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getItems());
+    dispatch(fetchItems());
     dispatch(getCategories());
   }, []);
 
@@ -35,7 +35,7 @@ const Home = () => {
         </select>
       </div>
 
-      <div className="grid xl:px-20 mt-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid xl:px-20 max-w-6xl mx-auto mt-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4">
         {items.map((item: any) => (
           <Card key={item.id} data={item} to={`/detail/${item?.id}`} />
         ))}

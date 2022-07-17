@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 type ItemsState = {
   items: [];
@@ -12,26 +13,31 @@ const initialState: ItemsState = {
   error: "",
 };
 
-export const getItems = createAsyncThunk("devices/getItems", async () => {
+export const fetchItems = createAsyncThunk("devices/fetchItems", async () => {
   return fetch(
     "https://62286b649fd6174ca82321f1.mockapi.io/case-study/products/"
   ).then((res) => res.json());
 });
 
+
 export const itemsSlice = createSlice({
   name: "devices",
   initialState,
-  reducers: {},
+  reducers: {
+    getItem: (state, action: PayloadAction<any>) => {
+      return state?.items?.find((item:any)=> item.id === action.payload)
+    },
+  },
   extraReducers: (builder: any) => {
-    builder.addCase(getItems.pending, (state: ItemsState) => {
+    builder.addCase(fetchItems.pending, (state: ItemsState) => {
       state.loading = true;
     })
-    builder.addCase(getItems.fulfilled, (state: ItemsState, action:PayloadAction<[]>) => {
+    builder.addCase(fetchItems.fulfilled, (state: ItemsState, action:PayloadAction<[]>) => {
       state.loading = false;
       state.error = "";
       state.items = action.payload
     })
-    builder.addCase(getItems.rejected, (state: ItemsState, action:PayloadAction<[]>) => {
+    builder.addCase(fetchItems.rejected, (state: ItemsState) => {
       state.loading = false;
       state.items = [];
       state.error = "Yüklenemedi"
@@ -39,5 +45,7 @@ export const itemsSlice = createSlice({
   }
 });
 
+
+export const { getItem } = itemsSlice.actions
 
 export default itemsSlice.reducer;
