@@ -10,6 +10,7 @@ const Home = () => {
   const { items } = useAppSelector((state) => state.items);
   const { categories } = useAppSelector((state) => state.categories);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(getItems());
     dispatch(getCategories());
@@ -17,17 +18,19 @@ const Home = () => {
 
   return (
     <div className="pt-12">
-      <div className="flex flex-col lg:flex-row justify-between items-center">
+      <div className="grid grid-cols-6 gap-4">
         <input
-          className="w-full lg:w-2/5 px-4 py-3 rounded-md text-xs outline-none text-gray-500"
+          className="lg:col-span-3 col-span-12 px-4 py-3 rounded-md text-xs outline-none text-gray-500"
           type="text"
           placeholder="Apple Watch,SamsungS21, MacbookPro..."
         />
 
-        <select className="w-full lg:w-1/3 mt-3 lg:mt-0 py-3 rounded-md text-sm text-center text-gray-500 outline-none">
-          <option value="all">Categories</option>
+        <select className="lg:col-end-7 lg:col-span-2 col-span-12 mt-3 lg:mt-0 p-3 rounded-md text-sm text-gray-500 outline-none">
+          <option value="All">Categories</option>
           {categories.map((category: any) => (
-            <option value={category?.name}>{category?.name}</option>
+            <option key={category.id} value={category?.name}>
+              {category?.name}
+            </option>
           ))}
         </select>
       </div>
@@ -37,6 +40,7 @@ const Home = () => {
           <Card key={item.id} data={item} />
         ))}
       </div>
+      
     </div>
   );
 };
