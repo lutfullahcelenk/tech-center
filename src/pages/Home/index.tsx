@@ -1,15 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import Card from "../../components/Card";
+//redux
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { getItems } from "../../features/itemsSlice";
+import { getCategories } from "../../features/categorySlice";
 
 const Home = () => {
   const { items } = useAppSelector((state) => state.items);
-  console.log("items", items);
+  const { categories } = useAppSelector((state) => state.categories);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getItems());
+    dispatch(getCategories());
   }, []);
 
   return (
@@ -21,9 +24,11 @@ const Home = () => {
           placeholder="Apple Watch,SamsungS21, MacbookPro..."
         />
 
-        <select className="w-full lg:w-1/3 mt-3 lg:mt-0 py-3 rounded-md text-sm text-center text-gray-500">
+        <select className="w-full lg:w-1/3 mt-3 lg:mt-0 py-3 rounded-md text-sm text-center text-gray-500 outline-none">
           <option value="all">Categories</option>
-          <option value="phone">Telephone</option>
+          {categories.map((category: any) => (
+            <option value={category?.name}>{category?.name}</option>
+          ))}
         </select>
       </div>
 
