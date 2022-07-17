@@ -7,8 +7,8 @@ import { fetchItems } from "../../features/itemsSlice";
 import { getCategories } from "../../features/categorySlice";
 
 const Home = () => {
-  const { items } = useAppSelector((state) => state.items);
-  const { categories } = useAppSelector((state) => state.categories);
+  const { items } = useAppSelector((state) => state?.items);
+  const { categories } = useAppSelector((state) => state?.categories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const Home = () => {
 
         <select className="lg:col-end-7 lg:col-span-2 col-span-12 mt-3 lg:mt-0 p-3 rounded-md text-sm text-gray-500 outline-none">
           <option value="All">Categories</option>
-          {categories.map((category: any) => (
-            <option key={category.id} value={category?.name}>
+          {categories?.map((category: any) => (
+            <option key={category?.id} value={category?.name}>
               {category?.name}
             </option>
           ))}
@@ -36,8 +36,8 @@ const Home = () => {
       </div>
 
       <div className="grid xl:px-20 max-w-6xl mx-auto mt-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4">
-        {items.map((item: any) => (
-          <Card key={item.id} data={item} to={`/detail/${item?.id}`} />
+        {items?.map((item: any) => (
+          <Card key={item?.id} data={item} to={`/detail/${item?.id}`} />
         ))}
       </div>
     </div>

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
 
 type ItemsState = {
   items: [];
@@ -25,7 +24,7 @@ export const itemsSlice = createSlice({
   initialState,
   reducers: {
     getItem: (state, action: PayloadAction<any>) => {
-      return state?.items?.find((item:any)=> item.id === action.payload)
+      return state.items.find((item:any)=> item.id === action.payload)
     },
   },
   extraReducers: (builder: any) => {
