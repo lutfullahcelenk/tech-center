@@ -1,9 +1,26 @@
-import React from 'react'
+import React from "react";
 
-const Card = () => {
+type IData = {
+  data: any;
+};
+
+const Card = ({ data }: IData) => {
   return (
-    <div>Card</div>
-  )
-}
+    <div className="flex flex-col justify-center items-center py-4">
+      <img
+        className="bg-white object-contain p-4 w-60 h-60 rounded-xl"
+        src={data?.avatar}
+        alt="device"
+      />
 
-export default Card
+      <div className="w-4/5">
+        <p className="lowercase first-letter:uppercase pt-3 px-2 truncate text-sm text-left">
+          {data?.name}
+        </p>
+        <p className="pb-6 text-xs text-center">$ {data?.price}</p>
+      </div>
+    </div>
+  );
+};
+
+export default Card;
