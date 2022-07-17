@@ -14,10 +14,10 @@ const Card = ({ data }: IData) => {
       />
 
       <div className="w-4/5">
-        <p className="lowercase first-letter:uppercase pt-3 px-2 truncate text-sm text-left">
+        <p className="lowercase first-letter:uppercase pt-3 px-2 truncate text-base text-left">
           {data?.name}
         </p>
-        <p className="pb-6 text-xs text-center">$ {data?.price}</p>
+        <p className="pb-6 text-sm text-center">$ {data?.price}</p>
       </div>
     </div>
   );
