@@ -8,7 +8,7 @@ type IData = {
 
 const Card = ({ data, to }: IData) => {
   return (
-    <div className="flex flex-col justify-center items-center py-4">
+    <div className="flex flex-col justify-center items-center p-4">
       <Link to={to}>
         <img
           className="bg-white object-contain p-4 w-60 h-60 rounded-xl"
