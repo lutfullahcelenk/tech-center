@@ -56,7 +56,7 @@ const Home = () => {
 
       <Link to="add-item">
         <img
-          className="fixed bottom-20 right-10 lg:right-32 w-12 sm:w-16"
+          className="fixed bottom-20 right-10 lg:right-32 w-12 sm:w-16 hover:cursor-pointer"
           src={plus}
           alt="plus"
         />

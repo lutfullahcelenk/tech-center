@@ -14,7 +14,7 @@ interface FormValues {
   description: string;
   avatar: string;
   category: string;
-  price: number;
+  price: string;
 }
 
 const AddItem = () => {
@@ -27,7 +27,7 @@ const AddItem = () => {
     name: "",
     avatar: "",
     developerEmail: "lutfullahclnk1104@gmail.com",
-    price: 0,
+    price: "",
     id: Date.now(),
     category: "",
     description: "",
@@ -43,8 +43,8 @@ const AddItem = () => {
 
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => {
-          dispatch(addItem(values));
+        onSubmit={async(values) => {
+          await dispatch(addItem(values));
           navigate("/");
         }}
       >

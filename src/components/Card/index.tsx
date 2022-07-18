@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 //assets
 import trash from "../../assets/trash.svg";
@@ -14,9 +14,11 @@ type IData = {
 const Card = ({ data, to }: IData) => {
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
-    dispatch(deleteItem(data.id));
+  const handleClick = async() => {
+    await dispatch(deleteItem(data.id));
+    window.location.reload()
   };
+
 
   return (
     <div className="group flex flex-col justify-center items-center p-4">
@@ -37,7 +39,7 @@ const Card = ({ data, to }: IData) => {
         </div>
         <img
           onClick={handleClick}
-          className="invisible group-hover:visible w-8 pr-2"
+          className="invisible group-hover:visible w-8 pr-2 cursor-pointer"
           src={trash}
           alt="delete"
         />
