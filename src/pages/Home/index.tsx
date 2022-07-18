@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
+//components
 import Card from "../../components/Card";
+//assets
+import plus from "../../assets/add.svg";
 //redux
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { fetchItems } from "../../features/itemsSlice";
 import { getCategories } from "../../features/categorySlice";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { items } = useAppSelector((state) => state?.items);
@@ -40,6 +44,14 @@ const Home = () => {
           <Card key={item?.id} data={item} to={`/detail/${item?.id}`} />
         ))}
       </div>
+
+      <Link to="add-item">
+        <img
+          className="fixed bottom-20 right-10 lg:right-32 w-12 sm:w-16"
+          src={plus}
+          alt="plus"
+        />
+      </Link>
     </div>
   );
 };
