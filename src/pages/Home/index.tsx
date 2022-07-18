@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 //components
 import Card from "../../components/Card";
 //assets
@@ -7,18 +7,26 @@ import plus from "../../assets/add.svg";
 //redux
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { fetchItems } from "../../features/itemsSlice";
-import { getCategories } from "../../features/categorySlice";
 import { Link } from "react-router-dom";
+import Filter from "../../components/Filter";
 
 const Home = () => {
+  const [category, setCategory] = useState("All");
+  const [search, setSearch] = useState("");
   const { items } = useAppSelector((state) => state?.items);
-  const { categories } = useAppSelector((state) => state?.categories);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchItems());
-    dispatch(getCategories());
   }, []);
+
+  const handleFilter = (e: any) => {
+    setCategory(e.target.value);
+  };
+
+  const filteredDevices = items?.filter(
+    (item: any) => item.category === category || category === "All"
+  );
 
   return (
     <div className="pt-12">
@@ -29,18 +37,13 @@ const Home = () => {
           placeholder="Apple Watch,SamsungS21, MacbookPro..."
         />
 
-        <select className="lg:col-end-7 lg:col-span-2 col-span-12 mt-3 lg:mt-0 p-3 rounded-md text-sm text-gray-500 outline-none">
-          <option value="All">Categories</option>
-          {categories?.map((category: any) => (
-            <option key={category?.id} value={category?.name}>
-              {category?.name}
-            </option>
-          ))}
-        </select>
+        <div className="lg:col-end-7 lg:col-span-2 col-span-12 ">
+          <Filter handleFilter={handleFilter} category={category} />
+        </div>
       </div>
 
       <div className="grid xl:px-20 max-w-6xl mx-auto mt-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4">
-        {items?.map((item: any) => (
+        {filteredDevices?.map((item: any) => (
           <Card key={item?.id} data={item} to={`/detail/${item?.id}`} />
         ))}
       </div>
