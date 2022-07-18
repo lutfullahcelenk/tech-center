@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 //components
 import Card from "../../components/Card";
+import Filter from "../../components/Filter";
 //assets
 import plus from "../../assets/add.svg";
 //redux
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { fetchItems } from "../../features/itemsSlice";
 import { Link } from "react-router-dom";
-import Filter from "../../components/Filter";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -25,7 +25,11 @@ const Home = () => {
   };
 
   const filteredDevices = items?.filter(
-    (item: any) => item.category === category || category === "All"
+    (item: any) =>
+      (item.category === category || category === "All") &&
+      (search === ""
+        ? item
+        : item.name.toLowerCase().includes(search.toLowerCase()))
   );
 
   return (
@@ -34,6 +38,8 @@ const Home = () => {
         <input
           className="lg:col-span-3 col-span-12 px-4 py-3 rounded-md text-xs outline-none text-gray-500"
           type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Apple Watch,SamsungS21, MacbookPro..."
         />
 
